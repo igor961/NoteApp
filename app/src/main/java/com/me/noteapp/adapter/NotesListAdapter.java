@@ -80,7 +80,6 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyVi
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
         private TextView[] tv;
 
         public MaterialButton getBtn() {
@@ -129,7 +128,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyVi
         Item i = mDataSetFiltered.get(position);
         holder.getBtn().setTag(i.getdAt().getTime());
         String cont = i.getContent();
-        final String contRes = cont.length() > 15 ? cont.substring(0, 15) : cont;
+        final String contRes = cont.length() > 15 ? cont.substring(0, 15)+"..." : cont;
         holder.mSetText(new String[]{i.getDate(), i.getTime(), contRes});
     }
 
