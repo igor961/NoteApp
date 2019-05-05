@@ -67,8 +67,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyVi
                 }
             });
             DESK_FLAG = false;
-        }
-        else {
+        } else {
             Collections.sort(mDataSetFiltered, new Comparator<Item>() {
                 @Override
                 public int compare(Item o1, Item o2) {
@@ -129,7 +128,9 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Item i = mDataSetFiltered.get(position);
         holder.getBtn().setTag(i.getdAt().getTime());
-        holder.mSetText(new String[]{i.getDate(), i.getTime(), i.getContent()});
+        String cont = i.getContent();
+        final String contRes = cont.length() > 15 ? cont.substring(0, 15) : cont;
+        holder.mSetText(new String[]{i.getDate(), i.getTime(), contRes});
     }
 
     @Override
