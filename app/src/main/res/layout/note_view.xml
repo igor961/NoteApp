@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/mtrl_card_spacing"
+    android:layout_marginTop="@dimen/mtrl_card_spacing"
+    android:layout_marginRight="@dimen/mtrl_card_spacing">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tv1"
+            style="@style/DateOrTime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/tv2"
+            style="@style/DateOrTime"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:id="@+id/tv3"
+            style="@style/TextView"
+            android:layout_below="@id/tv1"
+            android:layout_alignParentLeft="true" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/select_btn"
+            style="@style/IconOnlyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv2"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/mtrl_card_spacing"
+            app:icon="@drawable/ic_chevron_right_black_24dp" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

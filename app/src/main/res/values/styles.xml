@@ -1,0 +1,49 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/CustomAppBar</item>
+        <item name="actionBarTheme">@style/ToolbarTheme</item>
+    </style>
+
+    <style name="IconOnlyButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+    </style>
+
+    <style name="TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/mtrl_card_spacing</item>
+        <item name="android:textSize">7pt</item>
+    </style>
+
+    <style name="DateOrTime" parent="TextView">
+        <item name="android:textSize">10pt</item>
+    </style>
+
+    <style name="CustomAppBar" parent="Widget.AppCompat.ActionBar">
+        <item name="titleTextStyle">@style/customTitleStyle</item>
+        <item name="background">@color/colorPrimary</item>
+    </style>
+
+    <style name="customTitleStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/colorWhite</item>
+    </style>
+
+    <style name="NoteViewStyle">
+        <item name="android:textSize">10pt</item>
+        <item name="android:color">#000</item>
+    </style>
+
+
+</resources>

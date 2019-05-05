@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Note App</string>
+    <string name="title_activity_note">NoteActivity</string>
+    <string name="title_view">View</string>
+    <string name="title_edit">Edit</string>
+    <string name="title_delete">Delete</string>
+    <string name="abc_sort">sorting</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_item_dialog_title">New Note</string>
+    <string name="dialog_title_delete">Delete?</string>
+</resources>
