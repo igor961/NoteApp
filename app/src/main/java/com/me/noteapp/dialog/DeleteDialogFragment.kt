@@ -1,17 +1,11 @@
 package com.me.noteapp.dialog
 
-import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.me.noteapp.NotesApplication
 import com.me.noteapp.R
-import com.me.noteapp.activity.MainActivity
-import com.me.noteapp.activity.NoteActivity
-import com.me.noteapp.entity.Item
-import java.util.*
 
 class DeleteDialogFragment : DialogFragment() {
 

@@ -1,28 +1,21 @@
 package com.me.noteapp.activity;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.me.noteapp.NotesApplication;
 import com.me.noteapp.R;
-import com.me.noteapp.dialog.DeleteDialogFragment;
 import com.me.noteapp.entity.Item;
 import com.me.noteapp.fragment.NoteEditFragment;
-import com.me.noteapp.fragment.NoteViewFragment;
-
-import java.util.Date;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 public class NoteActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
-    private NoteViewFragment f1;
+    private NoteEditFragment f1;
     private NoteEditFragment f2;
     private Item mItem;
 
@@ -35,8 +28,8 @@ public class NoteActivity extends AppCompatActivity {
         mItem = NotesApplication.getDataManager().read(noteId);
 
         if (savedInstanceState == null) {
-            f1 = NoteViewFragment.newInstance(mItem);
-            f2 = NoteEditFragment.newInstance(mItem);
+            f1 = NoteEditFragment.newInstance(mItem, true);
+            f2 = NoteEditFragment.newInstance(mItem, false);
         }
 
         displayF1();
@@ -50,8 +43,7 @@ public class NoteActivity extends AppCompatActivity {
                     case R.id.navigation_edit:
                         displayF2();
                         return true;
-                    case R.id.navigation_delete:
-                        deleteDialog();
+                    case R.id.navigation_history:
                         return true;
                 }
                 return false;
@@ -77,10 +69,5 @@ public class NoteActivity extends AppCompatActivity {
         else ft.add(R.id.noteViewContainer, f2, "B");
         if (f1.isAdded()) ft.hide(f1);
         ft.commit();
-    }
-
-    protected void deleteDialog() {
-        DeleteDialogFragment ddf = DeleteDialogFragment.newInstance(mItem.getdAt().getTime());
-        ddf.show(getSupportFragmentManager(), "Delete item");
     }
 }

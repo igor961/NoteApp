@@ -24,4 +24,11 @@ public class DBConfig {
     }
 
 
+    public String createTablesQuery() {
+        return "";
+    }
+
+    public String deleteTablesQuery() {
+        return "";
+    }
 }
