@@ -15,21 +15,33 @@ import java.util.Date;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
+    private static DBHelper sInstance;
     private static DBConfig cfg = DBConfig.getInstance();
-    private static final String SQL_CREATE_TABLES = cfg.createTablesQuery();
-    private static final String SQL_DELETE_TABLES = cfg.deleteTablesQuery();
+    private static final String SQL_CREATE_TABLES = cfg.getCreateTablesQuery();
+    private static final String SQL_DELETE_TABLES = cfg.getDeleteTablesQuery();
     private static final String name = cfg.DB_NAME;
-    private static final int version = 1;
+    private static int version = 1;
     private ContentValues values;
 
-    public boolean insertItem(Item item) {
+    public static synchronized DBHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new DBHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    public synchronized boolean insertItem(Item item) {
         SQLiteDatabase db = getWritableDatabase();
         values = new ContentValues();
         values.put("dAt", item.getdAt().getTime());
         values.put("content", item.getContent());
-
-        long res = db.insert("items", null, values);
-        return res != -1;
+        long res = 0;
+        res = db.insert("items", null, values);
+        if (res == -1) {
+            onUpgrade(db, 0, 0);
+            return false;
+        }
+        return true;
     }
 
     public boolean updateItem(Item item) {
@@ -86,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return items;
     }
 
-    public DBHelper(Context context) {
+    private DBHelper(Context context) {
         super(context, name, null, version);
     }
 

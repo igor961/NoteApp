@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
-    private static NotesListAdapter mAdapter;
+    private NotesListAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<Item> testData;
 
@@ -40,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        testData = NotesApplication.getTestData();
+        testData = NotesApplication.getDataManager().readAllItems();
 
         mAdapter = new NotesListAdapter(testData);
+        NotesApplication.getDataManager().addObserver(mAdapter);
         recyclerView.setAdapter(mAdapter);
 
 
@@ -96,16 +97,6 @@ public class MainActivity extends AppCompatActivity {
         else if (id == R.id.action_sort) mAdapter.sort();
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        notifyDataSetChanged();
-    }
-
-    public static void notifyDataSetChanged() {
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override

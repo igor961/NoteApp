@@ -3,22 +3,19 @@ package com.me.noteapp.data;
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 
-import com.me.noteapp.NotesApplication;
 import com.me.noteapp.data.helper.DBHelper;
 import com.me.noteapp.entity.Item;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Observable;
 
-public class DBDataManager {
+public class DBDataManager extends Observable {
     private DBHelper dbHelper;
 
     public DBDataManager(Context ctx) {
-        dbHelper = new DBHelper(ctx);
+        dbHelper = DBHelper.getInstance(ctx);
     }
 
     public void createSampleData() {
@@ -30,27 +27,31 @@ public class DBDataManager {
     public void reloadData() {
         List res = dbHelper.readAllItems();
         if (res.isEmpty()) createSampleData();
-        else NotesApplication.setTestData(res);
+        setChanged();
+        notifyObservers();
     }
 
-    public boolean insertItem(@NotNull Item item) throws SQLiteConstraintException {
+    public boolean insertItem(Item item) throws SQLiteConstraintException {
         boolean res = dbHelper.insertItem(item);
         reloadData();
         return res;
     }
 
-    @Nullable
-    public Item read(@NotNull Long id) {
+    public Item read(Long id) {
         return dbHelper.read(id.toString());
     }
 
-    public boolean updateItem(@NotNull Item item) {
+    public List<Item> readAllItems() {
+        return dbHelper.readAllItems();
+    }
+
+    public boolean updateItem(Item item) {
         boolean res = dbHelper.updateItem(item);
         reloadData();
         return res;
     }
 
-    public boolean deleteItem(Long itemId) {
+    public synchronized boolean deleteItem(Long itemId) {
         boolean res = dbHelper.deleteItem(itemId.toString());
         reloadData();
         return res;

@@ -17,10 +17,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyViewHolder> implements Filterable {
+public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyViewHolder> implements Filterable, Observer {
     private List<Item> mDataSet;
     private List<Item> mDataSetFiltered;
 
@@ -76,6 +78,11 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyVi
             });
             DESK_FLAG = true;
         }
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
         notifyDataSetChanged();
     }
 
