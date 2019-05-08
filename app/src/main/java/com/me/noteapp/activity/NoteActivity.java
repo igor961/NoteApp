@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.me.noteapp.NotesApplication;
 import com.me.noteapp.R;
-import com.me.noteapp.entity.History;
 import com.me.noteapp.entity.Item;
 import com.me.noteapp.fragment.HistoryFragment;
 import com.me.noteapp.fragment.NoteEditFragment;

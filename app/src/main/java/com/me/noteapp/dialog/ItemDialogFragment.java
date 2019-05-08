@@ -1,6 +1,5 @@
 package com.me.noteapp.dialog;
 
-import android.os.Bundle;
 import android.widget.EditText;
 
 import com.me.noteapp.NotesApplication;

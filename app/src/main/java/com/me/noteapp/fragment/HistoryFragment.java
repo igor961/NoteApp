@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import com.me.noteapp.NotesApplication;
 import com.me.noteapp.R;
 import com.me.noteapp.adapter.HistoryAdapter;
-import com.me.noteapp.entity.History;
 import com.me.noteapp.entity.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -27,9 +27,10 @@ public class HistoryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_history, container, false);
-        Item note = (Item) getArguments().getSerializable("note");
-        List<String> historyCont = NotesApplication.getDataManager().getHistories(note.getdAt().getTime());
-        historyCont.add(0, note.getDate() + " " + note.getTime());
+        final Item note = (Item) getArguments().getSerializable("note");
+        List<String> historyCont = new ArrayList<>();
+        historyCont.add(note.getDate() + " " + note.getTime());
+        historyCont.addAll(NotesApplication.getDataManager().getHistories(note.getdAt().getTime()));
         mAdapter = new HistoryAdapter(historyCont);
         histCont = v.findViewById(R.id.history_container);
         histCont.setLayoutManager(new LinearLayoutManager(v.getContext()));

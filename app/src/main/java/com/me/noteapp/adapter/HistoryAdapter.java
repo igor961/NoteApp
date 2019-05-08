@@ -5,6 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.me.noteapp.R;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -20,26 +22,34 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     class HistoryVH extends RecyclerView.ViewHolder {
         private TextView historyTextView;
+        private TextView captionTextView;
 
         public HistoryVH(@NonNull View itemView) {
             super(itemView);
-            historyTextView = (TextView) itemView;
+            historyTextView = itemView.findViewById(R.id.cont);
+            captionTextView = itemView.findViewById(R.id.cap);
         }
 
         public void setHistory(String txt) {
             this.historyTextView.setText(txt);
+        }
+
+        public void setCaption(String txt) {
+            this.captionTextView.setText(txt);
         }
     }
 
     @NonNull
     @Override
     public HistoryVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        TextView v = new TextView(parent.getContext());
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.history_view, parent, false);
         return new HistoryVH(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HistoryVH holder, int position) {
+        if (position == 0) holder.setCaption("Created:");
         holder.setHistory(historyList.get(position));
     }
 

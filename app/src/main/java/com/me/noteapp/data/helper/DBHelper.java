@@ -93,7 +93,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor;
         List<History> histories = new ArrayList<>();
-        cursor = db.rawQuery("select * from histories where itemId = ?;", new String[]{id});
+        cursor = db.rawQuery("select * from histories where itemId = ? order by id ASC;", new String[]{id});
         Date hId;
         long itemId;
         if (cursor.moveToFirst()) {

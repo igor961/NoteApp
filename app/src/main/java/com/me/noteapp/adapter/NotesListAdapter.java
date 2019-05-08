@@ -128,7 +128,6 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyVi
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = (View) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.note_view, parent, false);
-
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
 
