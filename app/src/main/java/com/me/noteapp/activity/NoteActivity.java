@@ -6,7 +6,9 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.me.noteapp.NotesApplication;
 import com.me.noteapp.R;
+import com.me.noteapp.entity.History;
 import com.me.noteapp.entity.Item;
+import com.me.noteapp.fragment.HistoryFragment;
 import com.me.noteapp.fragment.NoteEditFragment;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ public class NoteActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
     private NoteEditFragment f1;
     private NoteEditFragment f2;
+    private HistoryFragment f3;
     private Item mItem;
 
     @Override
@@ -30,6 +33,7 @@ public class NoteActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             f1 = NoteEditFragment.newInstance(mItem, true);
             f2 = NoteEditFragment.newInstance(mItem, false);
+            f3 = HistoryFragment.newInstance(mItem);
         }
 
         displayF1();
@@ -44,6 +48,7 @@ public class NoteActivity extends AppCompatActivity {
                         displayF2();
                         return true;
                     case R.id.navigation_history:
+                        displayF3();
                         return true;
                 }
                 return false;
@@ -60,6 +65,7 @@ public class NoteActivity extends AppCompatActivity {
         if (f1.isAdded()) ft.show(f1);
         else ft.add(R.id.noteViewContainer, f1, "A");
         if (f2.isAdded()) ft.hide(f2);
+        if (f3.isAdded()) ft.hide(f3);
         ft.commit();
     }
 
@@ -68,6 +74,16 @@ public class NoteActivity extends AppCompatActivity {
         if (f2.isAdded()) ft.show(f2);
         else ft.add(R.id.noteViewContainer, f2, "B");
         if (f1.isAdded()) ft.hide(f1);
+        if (f3.isAdded()) ft.hide(f3);
+        ft.commit();
+    }
+
+    protected void displayF3() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (f3.isAdded()) ft.show(f3);
+        else ft.add(R.id.noteViewContainer, f3, "C");
+        if (f1.isAdded()) ft.hide(f1);
+        if (f2.isAdded()) ft.hide(f2);
         ft.commit();
     }
 }

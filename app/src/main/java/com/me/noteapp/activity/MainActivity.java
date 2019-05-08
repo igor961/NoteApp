@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         NotesApplication.getDataManager().addObserver(mAdapter);
         recyclerView.setAdapter(mAdapter);
 
-
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

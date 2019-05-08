@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.me.noteapp.config.DBConfig;
+import com.me.noteapp.entity.History;
 import com.me.noteapp.entity.Item;
 
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
     private static DBHelper sInstance;
     private static DBConfig cfg = DBConfig.getInstance();
-    private static final String SQL_CREATE_TABLES = cfg.getCreateTablesQuery();
-    private static final String SQL_DELETE_TABLES = cfg.getDeleteTablesQuery();
+    private static final List<String> SQL_CREATE_TABLES = cfg.getCreateTablesQuery();
+    private static final List<String> SQL_DELETE_TABLES = cfg.getDeleteTablesQuery();
     private static final String name = cfg.DB_NAME;
     private static int version = 1;
     private ContentValues values;
@@ -37,11 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("content", item.getContent());
         long res = 0;
         res = db.insert("items", null, values);
-        if (res == -1) {
-            onUpgrade(db, 0, 0);
-            return false;
-        }
-        return true;
+        return res != -1;
     }
 
     public boolean updateItem(Item item) {
@@ -51,7 +48,16 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("dAt", id);
         values.put("content", item.getContent());
 
-        long res = db.update("items", values, "dAt LIKE ?", new String[]{id});
+        db.beginTransaction();
+        long res;
+        try {
+            res = db.update("items", values, "dAt LIKE ?", new String[]{id});
+            insertHistory(new History(item.getdAt().getTime(), new Date()));
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
         return res > 0;
     }
 
@@ -73,6 +79,35 @@ public class DBHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    public boolean insertHistory(History h) {
+        SQLiteDatabase db = getWritableDatabase();
+        values = new ContentValues();
+        values.put("itemId", h.getItemId());
+        values.put("id", h.getId().getTime());
+        long res = 0;
+        res = db.insert("histories", null, values);
+        return res != -1;
+    }
+
+    public List<History> getHistories(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor;
+        List<History> histories = new ArrayList<>();
+        cursor = db.rawQuery("select * from histories where itemId = ?;", new String[]{id});
+        Date hId;
+        long itemId;
+        if (cursor.moveToFirst()) {
+            itemId = cursor.getLong(cursor.getColumnIndex("itemId"));
+            while (cursor.isAfterLast() == false) {
+                hId = new Date(cursor.getLong(cursor.getColumnIndex("id")));
+                histories.add(new History(itemId, hId));
+                cursor.moveToNext();
+            }
+            return histories;
+        }
+        return null;
+    }
+
     public List<Item> readAllItems() {
         SQLiteDatabase db = getWritableDatabase();
         List<Item> items = new ArrayList<>();
@@ -90,7 +125,6 @@ public class DBHelper extends SQLiteOpenHelper {
             while (cursor.isAfterLast() == false) {
                 dAt = new Date(cursor.getLong(cursor.getColumnIndex("dAt")));
                 content = cursor.getString(cursor.getColumnIndex("content"));
-
                 items.add(new Item(dAt, content));
                 cursor.moveToNext();
             }
@@ -104,12 +138,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_TABLES);
+        for (String sql : SQL_CREATE_TABLES) db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_TABLES);
+        for (String sql : SQL_DELETE_TABLES) db.execSQL(sql);
         onCreate(db);
     }
 

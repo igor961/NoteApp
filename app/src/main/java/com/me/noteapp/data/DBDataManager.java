@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 
 import com.me.noteapp.data.helper.DBHelper;
+import com.me.noteapp.entity.History;
 import com.me.noteapp.entity.Item;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +30,7 @@ public class DBDataManager extends Observable {
         List res = dbHelper.readAllItems();
         if (res.isEmpty()) createSampleData();
         setChanged();
-        notifyObservers();
+        notifyObservers(res);
     }
 
     public boolean insertItem(Item item) throws SQLiteConstraintException {
@@ -43,6 +45,13 @@ public class DBDataManager extends Observable {
 
     public List<Item> readAllItems() {
         return dbHelper.readAllItems();
+    }
+
+    public List<String> getHistories(long id) {
+        List<History> h = dbHelper.getHistories(String.valueOf(id));
+        List<String> res = new ArrayList<>();
+        for (History i : h) res.add(i.getHistory());
+        return res;
     }
 
     public boolean updateItem(Item item) {

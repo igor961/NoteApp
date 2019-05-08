@@ -83,7 +83,11 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyVi
 
     @Override
     public void update(Observable o, Object arg) {
-        notifyDataSetChanged();
+        if (arg instanceof List) {
+            this.mDataSet = (List<Item>) arg;
+            this.mDataSetFiltered = (List<Item>) arg;
+            notifyDataSetChanged();
+        }
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -135,7 +139,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyVi
         Item i = mDataSetFiltered.get(position);
         holder.getBtn().setTag(i.getdAt().getTime());
         String cont = i.getContent();
-        final String contRes = cont.length() > 15 ? cont.substring(0, 15)+"..." : cont;
+        final String contRes = cont.length() > 15 ? cont.substring(0, 15) + "..." : cont;
         holder.mSetText(new String[]{i.getDate(), i.getTime(), contRes});
     }
 

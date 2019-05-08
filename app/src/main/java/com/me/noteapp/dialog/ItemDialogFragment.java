@@ -29,8 +29,6 @@ public class ItemDialogFragment extends DefaultDialog {
 
     public static ItemDialogFragment newInstance() {
         ItemDialogFragment f = new ItemDialogFragment();
-        Bundle b = new Bundle();
-        f.setArguments(b);
         return f;
     }
 }

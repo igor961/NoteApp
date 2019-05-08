@@ -35,7 +35,7 @@ public class NoteEditFragment extends Fragment {
 
     private View inflateViewFrag(LayoutInflater inflater, ViewGroup container) {
         View v = inflater.inflate(R.layout.fragment_note_view, container, false);
-        ((TextView) v.findViewById(R.id.noteView)).setText(mItem.getContent());
+        if (mItem != null) ((TextView) v.findViewById(R.id.noteView)).setText(mItem.getContent());
         return v;
     }
 

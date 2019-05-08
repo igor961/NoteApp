@@ -38,8 +38,4 @@ public class Item implements Serializable {
     public String getContent() {
         return content;
     }
-
-    public void setdAt(Date dAt) {
-        this.dAt = dAt;
-    }
 }
