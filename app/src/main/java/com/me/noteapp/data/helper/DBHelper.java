@@ -103,9 +103,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 histories.add(new History(itemId, hId));
                 cursor.moveToNext();
             }
-            return histories;
         }
-        return null;
+        return histories;
     }
 
     public List<Item> readAllItems() {

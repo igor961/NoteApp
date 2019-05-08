@@ -22,8 +22,8 @@ public class History implements Serializable {
     public History(long itemId, Date id) {
         this.itemId = itemId;
         this.id = id;
-        this.time = new SimpleDateFormat("HH:mm").format(itemId);
-        this.date = new SimpleDateFormat("dd/MM/yyyy").format(itemId);
+        this.time = new SimpleDateFormat("HH:mm").format(id);
+        this.date = new SimpleDateFormat("dd/MM/yyyy").format(id);
     }
 
     public long getItemId() {
@@ -39,7 +39,7 @@ public class History implements Serializable {
     }
 
     public void setId(Date date) {
-        this.id = id;
+        this.id = date;
     }
 
     public String getHistory() {
