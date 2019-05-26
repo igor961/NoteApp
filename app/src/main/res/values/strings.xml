@@ -11,4 +11,5 @@
     <string name="add_item_dialog_title">New Note</string>
     <string name="dialog_title_delete">Delete?</string>
     <string name="title_history">History</string>
+    <string name="ok">Finish</string>
 </resources>

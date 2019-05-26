@@ -18,7 +18,7 @@ abstract public class DefaultDialog extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         builder.setCustomTitle(getActivity().findViewById(R.id.customTitle))
                 .setView(inflater.inflate(getRes(), null))
-                .setPositiveButton(R.string.title_delete, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 action();
