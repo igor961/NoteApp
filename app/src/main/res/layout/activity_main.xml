@@ -22,18 +22,4 @@
         app:srcCompat="@drawable/ic_create_black_24dp" />
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/notes_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
-</LinearLayout>-->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
